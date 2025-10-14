@@ -1,0 +1,75 @@
+video 1
+
+Sudo nano etc/default/grub
+Grub_timeout = 20
+Sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+
+
+Presiona e 
+Init=/bin/sh
+Ctrl + x
+Mount -o remount,rw /
+Passwd root
+Contraseña nueva 
+Touch /.autorelabel
+Exec /sbin/init
+
+-------------------------------------------------------------------------------------------
+
+video 2
+
+
+Nano backup.sh
+#!/bin/bash
+fecha=$(date +%d-%m-%Y%H%M)
+tar -czvf /home/$(whoami)/backup_$fecha.tar.gz /home/$(whoami)
+ctrl + o
+enter 
+ctrl + x
+sudo chmod 777 backup.sh
+./backup.sh
+
+
+Nano ip.sh
+#!/bin/bash
+read -p "Ingrese el nombre del archivo (sin extensión): " nombre
+cd Escritorio
+ifconfig > "$nombre.txt"
+cat "$nombre.txt"
+ctrl + o
+enter 
+ctrl + x 
+sudo chmod 777 ip.sh
+./ip.sh
+
+
+--------------------------------------------------------
+
+video 3
+
+fedora:
+Sudo dnf install -y openssh-server
+Sudo systemctl start sshd
+Sudo firewall-cmd –add-service=ssh –permanent
+Sudo firewall-cmd --reload
+Sudo systemctl status sshd
+
+
+windows:
+Ssh-keygen -t rsa -b 4096
+Enter
+Enter
+Enter
+scp C:\Users\feliz\.ssh\id_rsa.pub usuario@IP_Fedora:/home/carlos/
+
+
+fedora:
+mkdir -p ~/.ssh
+cat ~/id_rsa.pub
+copiar
+cd .ssh
+nano authorized_keys
+pegar 
+ctrl + o 
+enter 
+ctrl + x
